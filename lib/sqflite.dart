@@ -29,7 +29,9 @@ class _SqfliteIslemiState extends State<SqfliteIslemleri> {
     _databaseHelper = DatabaseHelper();
     _databaseHelper.butunNotlar().then((value) {
       for (Map readNotes in value) {
-        tumNotlar.add(Notlar.dbOku(readNotes));
+        setState(() {
+          tumNotlar.add(Notlar.dbOku(readNotes));
+        });
       }
       print(tumNotlar.length.toString());
     }).catchError((error) => print("Error:" + error));
@@ -242,9 +244,7 @@ class _SqfliteIslemiState extends State<SqfliteIslemleri> {
       key: Key(value.toString()),
       direction: DismissDirection.startToEnd,
       onDismissed: (direction) {
-        
-          _notunuSil(tumNotlar[index].id, index);
-        
+        _notunuSil(tumNotlar[index].id, index);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -287,6 +287,8 @@ class _SqfliteIslemiState extends State<SqfliteIslemleri> {
 
       setState(() {
         tumNotlar.insert(0, notlar);
+        baslik = "";
+        aciklama = "";
       });
     }
   }
@@ -300,6 +302,8 @@ class _SqfliteIslemiState extends State<SqfliteIslemleri> {
       ));
       setState(() {
         tumNotlar.removeAt(index);
+        baslik = "";
+        aciklama = "";
       });
     } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
