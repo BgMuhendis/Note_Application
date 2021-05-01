@@ -1,4 +1,4 @@
-# kalici_depolama
+# Note Application
 
 A new Flutter project.
 
